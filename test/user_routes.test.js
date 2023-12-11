@@ -32,6 +32,13 @@ describe('USER ROUTER', () => {
             userId = response.body.data.id
         })
     })  
+
+    describe('TRY GET', () => {
+        it('Should return 200 /=> Get user', async() => {
+            const response = await request(app).get(`/users/${userId}`)
+            expect(response.status).toBe(200)
+        })
+    })
     
     describe('TRY PATCH', () => {
         it('Should return 404 /=> Modify bad user', async () => {
