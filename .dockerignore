@@ -1,0 +1,9 @@
+node_modules
+mysql
+coverage
+.scannerwork
+test
+scan.sh
+sonar-project.properties
+docker-compose.yml
+Dockerfile
