@@ -45,7 +45,7 @@ jobs:
         runs-on: ubuntu-latest
 
         services:
-            mariadb:
+            mariadbdd:
                 image: mariadb:latest
                 env:
                     MARIADB_ROOT_PASSWORD: toor
