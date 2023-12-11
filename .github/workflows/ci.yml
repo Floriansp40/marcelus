@@ -7,7 +7,7 @@ on:
         branches: ["main"]
 
 jobs:
-    mainRoutage:
+    routage:
         if: ${{ !contains(github.event.head_commit.message, '#code')}}
         runs-on: ubuntu-latest
 
@@ -38,42 +38,9 @@ jobs:
             - name: Install Dependencies
               run: npm i
             - name: Run Main Test
-              run: npm run test:file main
-
-    userRoutage:
-        if: ${{ !contains(github.event.head_commit.message, '#code')}}
-        runs-on: ubuntu-latest
-
-        services:
-            mariadbdd:
-                image: mariadb:latest
-                env:
-                    MARIADB_ROOT_PASSWORD: toor
-                    MARIADB_DATABASE: test
-                    MARIADB_USER: test
-                    MARIADB_PASSWORD: test
-                ports:
-                    - 3306
-                options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=10s --health-timeout=5s --health-retries=3
-
-        env:
-            DB_NAME: test
-            DB_USER: test
-            DB_PASS: test
-
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
-            - name: Setup node
-              uses: actions/setup-node@v3
-              with:
-                node-version: 18.x
-            - name: Install Dependencies
-              run: npm i
-            - name: Run Main Test
-              run: npm run test:file user
+              run: npm run test
 
     deployDocker:
-        needs: [mainRoutage,userRoutage]
+        needs: [routage]
         if: ${{ github.event_name == 'push' && github.ref_name == 'main' && contains(github.event.head_commit.message, '#docker')}}        
         uses: ./.github/workflows/cd_docker.yml
