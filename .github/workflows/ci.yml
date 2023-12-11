@@ -39,3 +39,8 @@ jobs:
               run: npm i --omit=dev
             - name: Run Main Test
               run: npm run test:file main
+
+    okDeploy:
+        needs: [routage]
+        if: ${{ github.event_name == 'push' && github.ref_name == 'main'}}
+        uses: ./.github/workflows/cd.yml
