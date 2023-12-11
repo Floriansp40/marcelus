@@ -40,7 +40,7 @@ jobs:
             - name: Run Main Test
               run: npm run test:file main
 
-    okDeploy:
+    deployDocker:
         needs: [routage]
-        if: ${{ github.event_name == 'push' && github.ref_name == 'main'}}
-        uses: ./.github/workflows/cd.yml
+        if: ${{ github.event_name == 'push' && github.ref_name == 'main' && contains(github.event.head_commit.message, '#docker')}}        
+        uses: ./.github/workflows/cd_docker.yml

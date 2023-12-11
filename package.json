@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon -r dotenv/config server.js",
     "start": "node -r dotenv/config server.js",
-    "test": "jest --setupFiles dotenv/config",
+    "test": "jest --setupFiles dotenv/config --runInBand",
     "test:file": "func() { jest ${1}_routes.test.js --setupFiles dotenv/config; }; func",
     "test:cov": "jest --setupFiles dotenv/config --coverage"
   },
